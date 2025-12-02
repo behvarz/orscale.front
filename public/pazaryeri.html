@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>OrScale Pazaryeri Geliştirme Teklifi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050509;
+      --bg-soft: #0d0d15;
+      --card: #12121e;
+      --accent: #d4af37;
+      --accent-soft: rgba(212, 175, 55, 0.12);
+      --text: #f5f5f7;
+      --muted: #a0a0b3;
+      --border: #232334;
+      --danger: #ff5c7a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #151530 0, #050509 55%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 32px 16px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(212, 175, 55, 0.04));
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(255, 255, 255, 0.02);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+    }
+
+    .page-inner {
+      padding: 36px 28px 40px;
+    }
+
+    @media (min-width: 840px) {
+      .page-inner {
+        padding: 40px 46px 48px;
+      }
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .brand-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      background: radial-gradient(circle at top left, rgba(212, 175, 55, 0.16), rgba(5, 5, 9, 0.6));
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .brand-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
+    }
+
+    .brand-right {
+      text-align: right;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .brand-right strong {
+      display: block;
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .headline {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .headline-title {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .headline-title span {
+      color: var(--accent);
+    }
+
+    @media (min-width: 720px) {
+      .headline-title {
+        font-size: 30px;
+      }
+    }
+
+    .headline-sub {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 640px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--muted);
+    }
+
+    .pill.highlight {
+      border-color: rgba(212, 175, 55, 0.7);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .section {
+      margin-bottom: 26px;
+      padding: 18px 18px 20px;
+      border-radius: 20px;
+      background: radial-gradient(circle at top left, rgba(212, 175, 55, 0.08), rgba(10, 10, 18, 0.96));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .section.soft {
+      background: rgba(8, 8, 16, 0.88);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .section p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 780px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(5, 5, 10, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 13px 13px;
+    }
+
+    .card-heading {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .card-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .card li {
+      font-size: 12px;
+      color: var(--muted);
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 3px;
+    }
+
+    .card li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      top: 0;
+      color: var(--accent);
+    }
+
+    .template-list {
+      margin-top: 6px;
+    }
+
+    .template-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      padding: 7px 9px;
+      border-radius: 12px;
+      background: rgba(5, 5, 12, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      margin-bottom: 6px;
+    }
+
+    .template-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .template-name {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .template-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .badge {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .badge.primary {
+      border-color: rgba(212, 175, 55, 0.8);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .badge.secondary {
+      color: var(--muted);
+    }
+
+    .badge.danger {
+      border-color: rgba(255, 92, 122, 0.8);
+      color: var(--danger);
+      background: rgba(255, 92, 122, 0.08);
+    }
+
+    .timeline {
+      margin-top: 4px;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 10px;
+      padding: 7px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(9, 9, 18, 0.94);
+      margin-bottom: 6px;
+      align-items: baseline;
+    }
+
+    .timeline-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .timeline-detail {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .price-box {
+      margin-top: 8px;
+      border-radius: 16px;
+      padding: 12px 14px 13px;
+      background: radial-gradient(circle at top left, rgba(212, 175, 55, 0.16), rgba(4, 4, 10, 0.96));
+      border: 1px solid rgba(212, 175, 55, 0.6);
+    }
+
+    .price-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .price-main {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .price-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .footnote {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .footer {
+      margin-top: 10px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer strong {
+      color: var(--text);
+    }
+
+    .cta-line {
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 175, 55, 0.6);
+      background: rgba(5, 5, 10, 0.9);
+      font-size: 11px;
+      color: var(--accent);
+    }
+
+    .cta-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .highlight-text {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="page-inner">
+      <!-- ÜST BÖLÜM -->
+      <header class="header">
+        <div class="brand-line">
+          <div class="brand-mark">
+            <span class="brand-dot"></span>
+            <span>OrScale – Marketplace Geliştirme Teklifi</span>
+          </div>
+          <div class="brand-right">
+            <strong>Ticari Teklif Taslağı</strong>
+            <span>Hazırlayan: Behzad Keshavarzi – OrScale</span><br/>
+            <span>info@orscale.com • 0539 300 08 90</span>
+          </div>
+        </div>
+
+        <div class="headline">
+          <h1 class="headline-title">
+            Çok Satıcılı <span>Pazaryeri Altyapısı</span> Geliştirme
+          </h1>
+          <p class="headline-sub">
+            Mevcut pazaryeri yazılımınız (ReadyCommerce – Razinsoft) üzerine, Türkiye şartlarında kesintisiz çalışacak
+            <span class="highlight-text">POS, Kargo, ERP ve Affiliate</span> modüllerinin uçtan uca tasarlanması ve geliştirilmesi.
+          </p>
+          <div class="pill-row">
+            <span class="pill highlight">PayTR / iyzico Pazaryeri Ödeme</span>
+            <span class="pill">Aras • Yurtiçi • DHL • Hepsijet</span>
+            <span class="pill">BizimHesap / QNB / eLogo Entegrasyonu</span>
+            <span class="pill">Kod + Link Bazlı Affiliate Sistemi</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ŞABLON SEÇİMİ -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Baz Platform Seçimi</h2>
+          <span class="section-tag">Altyapı Tercihi</span>
+        </div>
+        <p>
+          Gönderdiğiniz üç yapı (Nest Multivendor, Grogin ve ReadyCommerce) teknik olarak incelendiğinde, ölçeklenebilirlik, modülerlik ve
+          kurumsal pazaryeri kurgusu açısından en sağlıklı temelin <span class="highlight-text">ReadyCommerce (Razinsoft)</span> olduğu
+          görülmektedir. Bu teklif, ReadyCommerce üzerine inşa edilecek modülleri kapsamaktadır.
+        </p>
+
+        <div class="template-list">
+          <div class="template-item">
+            <div>
+              <div class="template-name">ReadyCommerce – Razinsoft</div>
+              <div class="template-note">Laravel tabanlı, modüler, pazaryeri geliştirmeye en uygun kod mimarisi.</div>
+            </div>
+            <span class="badge primary">Önerilen Baz Yapı</span>
+          </div>
+          <div class="template-item">
+            <div>
+              <div class="template-name">Nest Multivendor (Codecanyon)</div>
+              <div class="template-note">Laravel tabanlı, geliştirilebilir ancak uzun vadede bakım maliyeti daha yüksek.</div>
+            </div>
+            <span class="badge secondary">Alternatif</span>
+          </div>
+          <div class="template-item">
+            <div>
+              <div class="template-name">Grogin – WooCommerce Tema</div>
+              <div class="template-note">Büyük ölçekte pazaryeri, ERP ve çoklu entegrasyon için uygun görülmemektedir.</div>
+            </div>
+            <span class="badge danger">Önerilmiyor</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- KAPSAM -->
+      <section class="section soft">
+        <div class="section-header">
+          <h2 class="section-title">Proje Kapsamı</h2>
+          <span class="section-tag">Ana Modüller</span>
+        </div>
+        <p>
+          Bu proje, hazır alınacak ReadyCommerce yapısının üzerine, Türkiye’de aktif ve büyük ölçekli bir pazaryerinin ihtiyaç duyacağı
+          kritik modüllerin geliştirilmesini ve tüm bileşenlerin tek bir yönetim panelinden sorunsuz çalışacak şekilde birbirine
+          bağlanmasını kapsamaktadır.
+        </p>
+
+        <div class="grid-2">
+          <!-- POS -->
+          <div class="card">
+            <div class="card-heading">1. Pazaryeri POS & Ödeme Modülü</div>
+            <div class="card-sub">PayTR veya iyzico pazaryeri altyapısı ile tam entegrasyon.</div>
+            <ul>
+              <li>Satıcı bazlı komisyon oranları ve komisyon kuralları</li>
+              <li>Satıcı cüzdanı, bakiyeler ve hakediş akışı</li>
+              <li>İade, kısmi iade, kesinti ve komisyon senaryoları</li>
+              <li>Tek havuz ve satıcılara periyodik ödeme senaryoları</li>
+              <li>Pazaryeri ödeme akışlarının ReadyCommerce sipariş sistemiyle tam uyumu</li>
+            </ul>
+          </div>
+
+          <!-- KARGO -->
+          <div class="card">
+            <div class="card-heading">2. Kargo Entegrasyonları</div>
+            <div class="card-sub">Aras • Yurtiçi • DHL • Hepsijet ile çoklu entegrasyon.</div>
+            <ul>
+              <li>Her sipariş için otomatik kargo barkod / takip numarası üretimi</li>
+              <li>Kargo durumlarının (hazırlanıyor, kargoya verildi, teslim edildi, iade vb.) otomatik güncellenmesi</li>
+              <li>Tek panelden çoklu kargo yönetimi ve toplu etiket/fiş çıktıları</li>
+              <li>İade süreçlerinde otomatik iade kodu üretimi ve takibi</li>
+            </ul>
+          </div>
+
+          <!-- AFFILIATE -->
+          <div class="card">
+            <div class="card-heading">3. Affiliate (Referans) Sistemi</div>
+            <div class="card-sub">Kod ve link bazlı, komisyon odaklı profesyonel takip altyapısı.</div>
+            <ul>
+              <li>Her kullanıcı için özel referans linki: <em>site.com/?ref=KOD</em></li>
+              <li>Sipariş sırasında referans kodu girerek satışın ilişkilendirilmesi</li>
+              <li>Cookie / oturum bazlı takip, belirli süre boyunca satış yazma desteği</li>
+              <li>Affiliate paneli: tıklama, satış, komisyon ve hakediş raporları</li>
+              <li>Ödeme planları ve hakediş ödeme onay ekranları</li>
+            </ul>
+          </div>
+
+          <!-- ERP -->
+          <div class="card">
+            <div class="card-heading">4. ERP / Muhasebe Entegrasyonu</div>
+            <div class="card-sub">BizimHesap, QNB veya eLogo ile iki yönlü veri akışı.</div>
+            <ul>
+              <li>Ürün, stok, fiyat ve kategori bilgilerinin senkronizasyonu</li>
+              <li>Sipariş ve faturaların ERP / muhasebe sistemine otomatik aktarımı</li>
+              <li>Cari hesap ve ödeme hareketlerinin parametrik entegrasyonu</li>
+              <li>Tek taraflı veya çift taraflı senkron yapı için özel entegrasyon katmanı</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- TEKNİK YAKLAŞIM VE ZAMANLAMA -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Teknik Yaklaşım & Zamanlama</h2>
+          <span class="section-tag">Mimari & Fazlar</span>
+        </div>
+        <p>
+          Geliştirmeler, ReadyCommerce’in çekirdek yapısına mümkün olduğunca dokunmadan, modül / eklenti mantığıyla
+          inşa edilecektir. Böylece ileride güncelleme aldığınızda kırılmalar minimumda kalır ve sistem yüksek trafikte dahi stabil
+          çalışmaya devam eder.
+        </p>
+
+        <div class="timeline">
+          <div class="timeline-row">
+            <div class="timeline-label">Faz 1 – Affiliate & Pazaryeri POS</div>
+            <div class="timeline-detail">Affiliate sistemi + PayTR/iyzico pazaryeri akışının devreye alınması. <br />≈ 6–8 hafta</div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-label">Faz 2 – Kargo Entegrasyonları</div>
+            <div class="timeline-detail">Aras, Yurtiçi, DHL ve Hepsijet entegrasyonlarının tamamlanması. <br />≈ 6–8 hafta</div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-label">Faz 3 – ERP / Muhasebe Entegrasyonu</div>
+            <div class="timeline-detail">Seçilecek ERP sistemi ile iki yönlü veri akışının kurulması. <br />≈ 4–6 hafta</div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-label">Test & Canlıya Geçiş</div>
+            <div class="timeline-detail">Uçtan uca testler, revizyonlar ve canlı ortam optimizasyonu. <br />≈ 2–3 hafta</div>
+          </div>
+        </div>
+
+        <p class="footnote">
+          Toplam geliştirme süresi, modüllerin netleştirilmesi ve önceliklendirilmesine bağlı olarak yaklaşık
+          <span class="highlight-text">4–5 ay</span> olarak öngörülmektedir.
+        </p>
+      </section>
+
+      <!-- BÜTÇE -->
+      <section class="section soft">
+        <div class="section-header">
+          <h2 class="section-title">Bütçe Aralığı</h2>
+          <span class="section-tag">Yatırım Perspektifi</span>
+        </div>
+        <p>
+          Tanımlanan kapsam, tek tek bakıldığında <span class="highlight-text">birden fazla kurumsal entegrasyon projesinin</span>
+          tek bir çatı altında toplanmış halidir. POS, kargo, ERP ve affiliate modüllerinin her biri, yazılım firmalarının
+          çoğunda ayrı projeler olarak fiyatlandırılmaktadır.
+        </p>
+
+        <div class="price-box">
+          <div class="price-label">Öngörülen Toplam Geliştirme Bütçesi</div>
+          <div class="price-main">350.000 – 450.000 TL</div>
+          <div class="price-sub">
+            Kesin tutar, kullanılacak ödeme altyapısı, seçilecek ERP sistemi ve ek talepleriniz netleştirildikten sonra detaylı kalem
+            bazlı teklif olarak sunulacaktır.
+          </div>
+        </div>
+
+        <p class="footnote">
+          Bütçe; proje yönetimi, analiz, backend ve frontend geliştirme, entegrasyonlar, test süreçleri ve canlıya geçiş desteğini
+          içermektedir. Lisans, hosting, ödeme kuruluşu veya ERP tarafındaki üçüncü parti servis ücretleri bu rakamlara dahil değildir.
+        </p>
+      </section>
+
+      <!-- KAPANIŞ -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Sonuç & Birlikte Çalışma Modeli</h2>
+          <span class="section-tag">Özet</span>
+        </div>
+        <p>
+          Özetle; hazır olarak satın alacağınız ReadyCommerce altyapısı, bu proje kapsamında
+          <span class="highlight-text">Türkiye’de aktif çalışan, büyük hacme uygun, kurumsal bir pazaryeri platformuna</span>
+          dönüştürülecektir. Tüm kritik modüller, tek bir mimari çerçevede, modüler ve genişlemeye açık olacak şekilde tasarlanacaktır.
+        </p>
+        <p>
+          Uygun görmeniz halinde, ilk adım olarak kısa bir <span class="highlight-text">analiz & teknik mimari çalışması</span> ile
+          modülleri birlikte netleştirip, faz planını ve kesin bütçeyi kalem kalem hazırlayabilirim.
+        </p>
+
+        <div class="footer">
+          <div>
+            Saygılarımla, <br />
+            <strong>Behzad Keshavarzi</strong><br />
+            <span>OrScale – AI & Software Development</span><br />
+            <span>info@orscale.com</span><br />
+            <span>0539 300 08 90</span>
+          </div>
+          <div class="cta-line">
+            <span class="cta-dot"></span>
+            <span>İsterseniz ilk faz olarak Affiliate + POS modüllerinden başlayarak aşamalı şekilde ilerleyebiliriz.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
