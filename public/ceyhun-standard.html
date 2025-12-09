@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mobil Uygulama Geliştirme Teklifi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #05060a;
+      --bg-card: #10121a;
+      --bg-grad: radial-gradient(circle at top left, #262b3d 0, #10121a 50%, #05060a 100%);
+      --border-soft: rgba(255, 255, 255, 0.06);
+      --border-strong: rgba(255, 154, 60, 0.3);
+      --text-main: #f5f5f5;
+      --text-muted: #e3e3e3;
+      --accent-grad: linear-gradient(120deg, #ffb347, #ff5f6d);
+      --accent-pill: rgba(255, 255, 255, 0.06);
+      --accent-badge: rgba(255, 255, 255, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding: 16px;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 16px auto 40px;
+      padding: 20px 16px 24px;
+      background: var(--bg-grad);
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 24px;
+      }
+      .page {
+        padding: 32px 32px 32px;
+        border-radius: 24px;
+      }
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    @media (min-width: 640px) {
+      .header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+      }
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 768px) {
+      .brand {
+        font-size: 24px;
+      }
+    }
+
+    .brand span {
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    @media (min-width: 768px) {
+      .subtitle {
+        font-size: 12px;
+      }
+    }
+
+    .contact {
+      font-size: 11px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 640px) {
+      .contact {
+        text-align: right;
+      }
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 0 0 10px 0;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    h2 {
+      font-size: 15px;
+      margin: 18px 0 8px;
+    }
+
+    @media (min-width: 768px) {
+      h2 {
+        font-size: 18px;
+      }
+    }
+
+    h3 {
+      font-size: 13px;
+      margin: 14px 0 6px;
+    }
+
+    @media (min-width: 768px) {
+      h3 {
+        font-size: 15px;
+      }
+    }
+
+    p {
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 6px 0;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 768px) {
+      p {
+        font-size: 13px;
+      }
+    }
+
+    .meta {
+      font-size: 11px;
+      margin-bottom: 12px;
+      opacity: 0.85;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-badge);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: nowrap;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #ff9a3c;
+      box-shadow: 0 0 10px rgba(255, 154, 60, 0.8);
+    }
+
+    ul {
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 4px 0 4px 18px;
+      color: var(--text-muted);
+      padding-left: 16px;
+    }
+
+    @media (min-width: 768px) {
+      ul {
+        font-size: 13px;
+      }
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    .section {
+      margin-bottom: 14px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      border: 1px solid var(--border-soft);
+    }
+
+    @media (min-width: 768px) {
+      .section {
+        padding: 14px 16px;
+        margin-bottom: 18px;
+      }
+    }
+
+    .section-strong {
+      background: radial-gradient(circle at top left, rgba(255, 154, 60, 0.18), rgba(255, 255, 255, 0.01));
+      border-color: var(--border-strong);
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 2px;
+    }
+
+    @media (min-width: 860px) {
+      .grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        gap: 16px;
+      }
+    }
+
+    .tagline {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+
+    .price-highlight {
+      font-size: 18px;
+      font-weight: 700;
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 4px;
+    }
+
+    @media (min-width: 768px) {
+      .price-highlight {
+        font-size: 20px;
+      }
+    }
+
+    .price-note {
+      font-size: 11px;
+      opacity: 0.85;
+    }
+
+    .timeline-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .timeline-table {
+        font-size: 12px;
+      }
+    }
+
+    .timeline-table th,
+    .timeline-table td {
+      padding: 6px 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: top;
+    }
+
+    .timeline-table th {
+      text-align: left;
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .timeline-table td:nth-child(1) {
+      width: 30%;
+    }
+
+    .timeline-table td:nth-child(3) {
+      white-space: nowrap;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: var(--accent-pill);
+      opacity: 0.9;
+    }
+
+    .footer {
+      font-size: 11px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      opacity: 0.9;
+    }
+
+    @media (min-width: 768px) {
+      .footer {
+        font-size: 12px;
+        margin-top: 24px;
+        padding-top: 16px;
+      }
+    }
+
+    .signature {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .signature {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="brand"><span>OrScale</span></div>
+        <div class="subtitle">Yapay Zekâ Destekli Yazılım &amp; Mobil Uygulama Geliştirme</div>
+      </div>
+      <div class="contact">
+        <strong>Teklif Sahibi:</strong> Behzad Keshavarzi<br />
+        <strong>E-posta:</strong> info@orscale.com<br />
+        <strong>Telefon:</strong> +90 539 300 08 90<br />
+        <strong>Lokasyon:</strong> Dubai / Türkiye
+      </div>
+    </div>
+
+    <div class="meta">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Proje Teklifi – Mobil Uygulama &amp; Admin Panel
+      </div>
+      <div class="badge">iOS &amp; Android Yayın Süreçleri Dahil</div>
+    </div>
+
+    <h1>Mobil Uygulama Geliştirme ve Yönetim Paneli Teklifi</h1>
+    <p>
+      Bu doküman, mevcut web sitenizde yer alan Arapça HTML metinlerin,
+      <strong>üye girişi ve profil altyapısına sahip</strong> bir mobil uygulama üzerinden
+      (iOS &amp; Android) son kullanıcılara sunulması ve aynı içeriğin bir
+      <strong>web tabanlı yönetim paneli (admin panel)</strong> ile yönetilmesine yönelik kapsamlı
+      teknik ve finansal teklifimizi içermektedir.
+    </p>
+
+    <div class="section">
+      <h2>1. Proje Kapsamı ve Hedefleri</h2>
+      <p>Projenin temel hedefi, mevcut web sitenizde bulunan Arapça metinleri, aşağıdaki özelliklerle zenginleştirilmiş bir mobil ekosisteme taşımaktır:</p>
+      <ul>
+        <li>iOS ve Android platformlarında çalışan, tek kod tabanından yönetilen modern mobil uygulama</li>
+        <li>Üye olma, giriş yapma, şifre sıfırlama ve profil yönetimi</li>
+        <li>Metin içeriklerinin <strong>kategori &gt; başlık &gt; içerik</strong> hiyerarşisi ile listelenmesi</li>
+        <li>Kullanıcının okuduğu metin sayısının, profilinde istatistik olarak gösterilmesi</li>
+        <li>Yetkili kişilerin içerik ve kullanıcı yönetimini yapabileceği admin panel</li>
+        <li>App Store ve Google Play yayın süreçlerinin uçtan uca yönetimi</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>2. Mobil Uygulama Modülleri (iOS &amp; Android)</h2>
+
+      <h3>2.1. Kimlik Doğrulama ve Kullanıcı Yönetimi</h3>
+      <ul>
+        <li>E-posta ve şifre ile <strong>kayıt olma (Sign Up)</strong></li>
+        <li>Giriş yapma (Sign In) ve güvenli oturum yönetimi (token tabanlı)</li>
+        <li>“Şifremi Unuttum” akışı (şifre sıfırlama linki veya kodu ile)</li>
+        <li>Temel güvenlik kontrolleri (minimum şifre kriterleri, brute force önlemleri vb.)</li>
+      </ul>
+
+      <h3>2.2. Profil Ekranı</h3>
+      <ul>
+        <li>Kullanıcıya ait temel bilgiler (isim, e-posta vb.)</li>
+        <li><strong>Okunan metin sayısı</strong> ve diğer okuma istatistikleri</li>
+        <li>İleride genişletilebilecek alanlar (favoriler, son okunanlar vb.) için esnek altyapı</li>
+      </ul>
+
+      <h3>2.3. İçerik Listeleme ve Görüntüleme</h3>
+      <ul>
+        <li>Admin panelde tanımlanan <strong>kategorilerin mobil uygulama ile senkron gösterimi</strong></li>
+        <li>Her kategori altında ilgili içerik başlıklarının listelenmesi</li>
+        <li>Başlığa tıklanınca, verilen HTML linki üzerinden metnin uygulama içinde görüntülenmesi</li>
+        <li><strong>RTL (Right-to-Left) Arapça dil desteği</strong> için uygun font ve hizalama yapısı</li>
+        <li>İçerik açıldığında kullanıcının “okuduğu metin” sayacının artırılması ve profile işlenmesi</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>3. Admin Panel (Web Tabanlı Yönetim Arayüzü)</h2>
+
+      <h3>3.1. Üye Yönetimi</h3>
+      <ul>
+        <li>Kayıtlı kullanıcıları listeleme, arama ve filtreleme</li>
+        <li>Kullanıcı detaylarını görüntüleme (e-posta, kayıt tarihi, okuduğu içerik sayısı vb.)</li>
+        <li>Gerektiğinde kullanıcıyı pasife alma / yeniden aktifleştirme</li>
+      </ul>
+
+      <h3>3.2. İçerik Yönetimi</h3>
+      <ul>
+        <li><strong>Kategori oluşturma, düzenleme, silme</strong></li>
+        <li>Her kategori için birden fazla başlık ekleme</li>
+        <li>Başlık bazında:
+          <ul>
+            <li>Başlık adı</li>
+            <li>Kategori seçimi</li>
+            <li>İlgili HTML linkinin tanımlanması (mevcut web sitenizdeki içerik URL’si)</li>
+          </ul>
+        </li>
+        <li>İçeriklerin mobil uygulamada anlık veya periyodik senkronizasyonu</li>
+      </ul>
+
+      <h3>3.3. Basit Raporlama / İstatistik (Opsiyonel Geliştirilebilir)</h3>
+      <ul>
+        <li>Toplam kullanıcı sayısı</li>
+        <li>Toplam okunan metin sayısı</li>
+        <li>En çok görüntülenen kategoriler / başlıklar (ileride eklenebilir)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>4. Teknik Altyapı ve Mimari Yaklaşım</h2>
+      <p>Projede modern ve sürdürülebilir bir mimari tercih edilecektir:</p>
+      <ul>
+        <li><strong>Mobil Uygulama:</strong> Tek kod tabanından iOS ve Android çıkışı alabileceğimiz hibrit bir yapı (örn. React Native / Flutter)</li>
+        <li><strong>Backend API:</strong> Güvenli kimlik doğrulama, içerik ve raporlama servislerini sağlayan REST tabanlı servisler</li>
+        <li><strong>Veritabanı:</strong> Kullanıcılar, kategoriler, başlıklar ve istatistikler için ilişkisel veritabanı</li>
+        <li><strong>Admin Panel:</strong> Modern bir frontend framework (örn. React / Vue) ile geliştirilen yönetim arayüzü</li>
+        <li><strong>Güvenlik:</strong> Şifrelenmiş şifreler, token tabanlı oturum, rol bazlı yetkilendirme</li>
+      </ul>
+    </div>
+
+    <div class="grid">
+      <div class="section">
+        <h2>5. Tahmini Zaman Planı</h2>
+        <p>Proje süresi, analizden yayın süreçlerine kadar uçtan uca ortalama <strong>5–7 hafta</strong> olarak öngörülmektedir.</p>
+        <table class="timeline-table">
+          <thead>
+            <tr>
+              <th>Aşama</th>
+              <th>İçerik</th>
+              <th>Süre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Analiz &amp; Tasarım</td>
+              <td>İhtiyaç analizi, ekran akışları, temel UI/UX tasarımları</td>
+              <td>5–7 gün</td>
+            </tr>
+            <tr>
+              <td>2. Backend &amp; Veritabanı</td>
+              <td>Auth, kullanıcı, içerik ve istatistik API’leri</td>
+              <td>7–10 gün</td>
+            </tr>
+            <tr>
+              <td>3. Mobil Uygulama</td>
+              <td>iOS &amp; Android ekranları, içerik akışları, profil ve istatistikler</td>
+              <td>10–14 gün</td>
+            </tr>
+            <tr>
+              <td>4. Admin Panel</td>
+              <td>Üye, kategori, başlık ve içerik yönetimi arayüzleri</td>
+              <td>7–10 gün</td>
+            </tr>
+            <tr>
+              <td>5. Test &amp; Yayın</td>
+              <td>Fonksiyonel testler, hata düzeltmeleri, App Store &amp; Google Play süreçleri</td>
+              <td>5–7 gün</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="price-note">
+          Süreler, projenin net kapsamının birlikte sabitlenmesi ve ek isteklerin durumuna göre küçük farklılıklar gösterebilir.
+        </p>
+      </div>
+
+      <div class="section section-strong">
+        <div class="tagline">Yatırım Bütçesi</div>
+        <div class="price-highlight">95.000 TL – 120.000 TL</div>
+        <p>
+          Belirtilen aralık, aşağıdaki kalemleri kapsayan <strong>toplam geliştirme maliyeti</strong> için öngörülmüştür:
+        </p>
+        <ul>
+          <li>iOS &amp; Android mobil uygulama geliştirme</li>
+          <li>Backend API ve veritabanı geliştirme</li>
+          <li>Web tabanlı admin panel geliştirme</li>
+          <li>Test, optimizasyon ve hata düzeltmeleri</li>
+          <li>Google Play ve App Store’a uygulama yükleme ve yayın süreci yönetimi</li>
+        </ul>
+        <p class="price-note">
+          Kesin fiyat, kapsamın netleştirilmesi (ek özellikler, ek diller, ek raporlama ihtiyaçları vb.)
+          sonrasında sizinle birlikte belirlenecektir. İstenirse ödeme planı, aşamalara bölünerek de yapılandırılabilir.
+        </p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>6. Fiyata Dahil Olan Hizmetler</h2>
+      <ul>
+        <li>Proje analizi ve teknik dokümantasyon (temel mimari ve akış diyagramları)</li>
+        <li>UI/UX tasarımı (mobil ve admin panel için temel tasarım)</li>
+        <li>Backend ve veritabanı kurulumu</li>
+        <li>Mobil uygulama (iOS &amp; Android) geliştirme</li>
+        <li>Admin panel geliştirme</li>
+        <li>Temel testler ve hata iyileştirme</li>
+        <li>Google Play ve App Store hesaplarınıza uygulamaların yüklenmesi ve ilk onay sürecinin takibi</li>
+      </ul>
+
+      <h3>7. Fiyata Dahil Olmayan / Opsiyonel Kalemler</h3>
+      <ul>
+        <li>Sunucu, barındırma (hosting), domain ve üçüncü parti servis ücretleri</li>
+        <li>Gelişmiş analitik panelleri, çoklu rol yönetimi gibi ek istekler</li>
+        <li>Uzun vadeli bakım ve destek anlaşması (aylık/ yıllık ayrı planlanabilir)</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <p>
+        Projeniz, mevcut içerik altyapınızı çok daha erişilebilir ve kullanıcı dostu bir mobil deneyime dönüştürme
+        potansiyeline sahip. OrScale ekibi olarak, hem teknik mimari hem de kullanıcı deneyimi tarafında
+        uzun vadede geliştirilebilir ve ölçeklenebilir bir yapı kurmayı hedefliyoruz.
+      </p>
+      <p class="signature">
+        Saygılarımla,<br />
+        <strong>Behzad Keshavarzi</strong><br />
+        <span class="pill">OrScale – Yazılım &amp; Otomasyon Çözümleri</span>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

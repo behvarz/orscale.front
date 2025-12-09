@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>ELİT PAKET – Yapay Zekâ Destekli İnteraktif Platform Teklifi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #03040a;
+      --bg-card: #0c0f1a;
+      --bg-grad-1: #151c3a;
+      --bg-grad-2: #050814;
+      --accent-1: #ffb347;
+      --accent-2: #ff5f6d;
+      --accent-3: #39d0ff;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --text-main: #f8f8ff;
+      --text-muted: #d2d2e6;
+      --glow-soft: 0 0 25px rgba(255, 140, 90, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #060815 0, #020309 60%, #000000 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    .page {
+      position: relative;
+      max-width: 1080px;
+      margin: 16px auto 40px;
+      padding: 20px 16px 28px;
+      border-radius: 22px;
+      background: radial-gradient(circle at top left, rgba(71, 85, 255, 0.22), rgba(5, 7, 24, 0.96));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow:
+        0 22px 60px rgba(0, 0, 0, 0.8),
+        0 0 80px rgba(71, 85, 255, 0.35);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 28px;
+      }
+      .page {
+        margin: 24px auto 56px;
+        padding: 32px 32px 36px;
+        border-radius: 26px;
+      }
+    }
+
+    /* Animated background blobs */
+    .bg-orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(45px);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: -1;
+      animation: floatOrb 18s ease-in-out infinite alternate;
+    }
+
+    .bg-orb.orb-1 {
+      width: 260px;
+      height: 260px;
+      top: -80px;
+      right: -40px;
+      background: radial-gradient(circle, rgba(255, 95, 109, 0.9), transparent 60%);
+      animation-delay: 0s;
+    }
+
+    .bg-orb.orb-2 {
+      width: 260px;
+      height: 260px;
+      bottom: -60px;
+      left: -50px;
+      background: radial-gradient(circle, rgba(57, 208, 255, 0.85), transparent 60%);
+      animation-delay: 4s;
+    }
+
+    .bg-orb.orb-3 {
+      width: 220px;
+      height: 220px;
+      top: 40%;
+      left: 60%;
+      background: radial-gradient(circle, rgba(255, 179, 71, 0.8), transparent 60%);
+      animation-delay: 8s;
+    }
+
+    @keyframes floatOrb {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(-20px, 10px, 0) scale(1.05);
+      }
+      100% {
+        transform: translate3d(20px, -20px, 0) scale(0.95);
+      }
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @media (min-width: 640px) {
+      .header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 18px;
+      }
+    }
+
+    .brand {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand span {
+      background: linear-gradient(120deg, #ffffff, #ffb347, #ff5f6d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+    }
+
+    .brand-tag {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #d4d4ff;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    @media (min-width: 768px) {
+      .subtitle {
+        font-size: 12px;
+      }
+    }
+
+    .contact {
+      font-size: 11px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 640px) {
+      .contact {
+        text-align: right;
+      }
+    }
+
+    .meta {
+      font-size: 11px;
+      margin-bottom: 14px;
+      opacity: 0.9;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 10px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), rgba(0,0,0,0.24));
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #39d0ff, #1a9fd1);
+      box-shadow: 0 0 14px rgba(57, 208, 255, 0.9);
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 0 0 10px 0;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 26px;
+      }
+    }
+
+    h2 {
+      font-size: 15px;
+      margin: 18px 0 8px;
+    }
+
+    @media (min-width: 768px) {
+      h2 {
+        font-size: 18px;
+      }
+    }
+
+    h3 {
+      font-size: 13px;
+      margin: 14px 0 6px;
+    }
+
+    @media (min-width: 768px) {
+      h3 {
+        font-size: 15px;
+      }
+    }
+
+    p {
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 6px 0;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 768px) {
+      p {
+        font-size: 13px;
+      }
+    }
+
+    ul {
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 4px 0 4px 18px;
+      color: var(--text-muted);
+      padding-left: 16px;
+    }
+
+    @media (min-width: 768px) {
+      ul {
+        font-size: 13px;
+      }
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    .section {
+      margin-bottom: 16px;
+      padding: 13px 12px;
+      border-radius: 16px;
+      background: radial-gradient(circle at top left, rgba(10, 16, 40, 0.92), rgba(4, 6, 18, 0.97));
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 9px 20px rgba(0, 0, 0, 0.9);
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      transition:
+        opacity 0.7s ease-out,
+        transform 0.7s ease-out,
+        box-shadow 0.4s ease-out,
+        border-color 0.4s ease-out;
+    }
+
+    @media (min-width: 768px) {
+      .section {
+        padding: 16px 17px;
+        margin-bottom: 20px;
+        border-radius: 18px;
+      }
+    }
+
+    .section.in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .section:hover {
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.9), 0 0 28px rgba(57, 208, 255, 0.35);
+      border-color: rgba(57, 208, 255, 0.65);
+    }
+
+    .section-strong {
+      background: radial-gradient(circle at top left, rgba(255, 179, 71, 0.22), rgba(10, 10, 26, 0.96));
+      border-image: linear-gradient(120deg, rgba(255, 179, 71, 0.8), rgba(255, 95, 109, 0.7)) 1;
+      box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.9),
+        0 0 36px rgba(255, 140, 90, 0.6);
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    @media (min-width: 880px) {
+      .grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        gap: 18px;
+      }
+    }
+
+    .tagline {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.21em;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+
+    .price-highlight {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(120deg, #ffb347, #ff5f6d, #ffe66d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 4px;
+      text-shadow: 0 0 18px rgba(255, 140, 90, 0.8);
+    }
+
+    @media (min-width: 768px) {
+      .price-highlight {
+        font-size: 22px;
+      }
+    }
+
+    .elite-pulse {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      animation: eliteGlow 2.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes eliteGlow {
+      0% {
+        box-shadow:
+          0 12px 32px rgba(0, 0, 0, 0.9),
+          0 0 22px rgba(255, 179, 71, 0.8);
+        transform: translateY(0px);
+      }
+      100% {
+        box-shadow:
+          0 16px 40px rgba(0, 0, 0, 0.9),
+          0 0 32px rgba(255, 95, 109, 0.95);
+        transform: translateY(-2px);
+      }
+    }
+
+    .elite-pulse:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), transparent 55%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .timeline-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .timeline-table {
+        font-size: 12px;
+      }
+    }
+
+    .timeline-table th,
+    .timeline-table td {
+      padding: 6px 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      vertical-align: top;
+    }
+
+    .timeline-table th {
+      text-align: left;
+      opacity: 0.75;
+      font-weight: 500;
+    }
+
+    .timeline-table td:nth-child(1) {
+      width: 32%;
+    }
+
+    .timeline-table td:nth-child(3) {
+      white-space: nowrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(8, 12, 32, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #e8e8ff;
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ffb347, #ff5f6d);
+    }
+
+    .footer {
+      font-size: 11px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.2);
+      opacity: 0.9;
+    }
+
+    @media (min-width: 768px) {
+      .footer {
+        font-size: 12px;
+        margin-top: 24px;
+        padding-top: 18px;
+      }
+    }
+
+    .signature {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .signature {
+        font-size: 13px;
+      }
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      font-size: 10px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.35);
+      color: #d8e4ff;
+    }
+
+    .hero-line {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-line {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Animated orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <div class="header section in-view" style="box-shadow:none;border:none;background:transparent;transform:none;">
+      <div>
+        <div class="brand">
+          <span>OrScale</span>
+          <span class="brand-tag">ELİT PAKET</span>
+        </div>
+        <div class="subtitle">Tamamen Yapay Zekâ Destekli İnteraktif Platform, Dijital Karakter ve Mobil/Web Uygulamalar</div>
+      </div>
+      <div class="contact">
+        <strong>Teklif Sahibi:</strong> Behzad Keshavarzi<br />
+        <strong>E-posta:</strong> info@orscale.com<br />
+        <strong>Telefon:</strong> +90 539 300 08 90<br />
+        <strong>Lokasyon:</strong> Dubai / Türkiye
+      </div>
+    </div>
+
+    <div class="meta">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Yapay Zekâ Karakteri · Sesli Diyalog · Lip Sync
+      </div>
+      <div class="badge">Web + Web App + Admin Panel + iOS &amp; Android</div>
+    </div>
+
+    <div class="section">
+      <div class="hero-line">elit seviye yapay zekâ deneyimi</div>
+      <h1>Elit Paket – Yapay Zekâ Destekli İnteraktif Platform Teklifi</h1>
+      <p>
+        Elit Paket, önceki paketlerdeki tüm özelliklere ek olarak; uygulama ve web tarafında kullanıcılarla birebir
+        konuşan <strong>yapay zekâ destekli bir dijital karakter</strong>, gerçek zamanlı <strong>sesli diyalog</strong>,
+        <strong>lip-sync</strong> (karakterin ağız hareketlerinin konuşma ile senkron olması) ve kişiye özel önerilerle
+        zenginleştirilmiş uçtan uca bir deneyim sunar.
+      </p>
+      <p>
+        Amaç, sadece metin okuma değil; kullanıcıların uygulama içindeki yapay zekâ karakteriyle konuşarak öğrenmesi,
+        keşfetmesi ve platformla duygusal bağ kurmasıdır.
+      </p>
+      <div class="chip-row">
+        <span class="chip">Dijital Avatar</span>
+        <span class="chip">Gerçek Zamanlı Konuşma</span>
+        <span class="chip">Kişiselleştirilmiş Öneriler</span>
+        <span class="chip">Gelişmiş Oyunlaştırma</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>1. Öne Çıkan Özellikler (Elit Seviye)</h2>
+
+      <h3>1.1. Yapay Zekâ Karakteri (Dijital Eğitmen / Asistan)</h3>
+      <ul>
+        <li>Uygulamada yer alan markaya özel tasarlanmış <strong>2D / 3D dijital karakter</strong></li>
+        <li>Kullanıcının sorduğu sorulara gerçek zamanlı cevap veren LLM tabanlı yapay zekâ beyni</li>
+        <li><strong>Lip-sync entegrasyonu:</strong>
+          <ul>
+            <li>Karakterin yüz ve ağız hareketlerinin üretilen ses ile senkron olması</li>
+            <li>Konuşma süresince mimik ve jestlerin senaryoya göre değişmesi</li>
+          </ul>
+        </li>
+        <li>Farklı modlar:
+          <ul>
+            <li>Soru–cevap modu</li>
+            <li>Açıklama / özet modu</li>
+            <li>Örnek cümleler, ek bağlam ve hikâyelerle anlatım modu</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>1.2. Sesli Konuşma ve Doğal Diyalog</h3>
+      <ul>
+        <li>Kullanıcıların uygulama içinde karakterle <strong>mikrofon üzerinden konuşabilmesi</strong></li>
+        <li><strong>Speech-to-Text (STT)</strong> ile sesin metne dönüştürülmesi</li>
+        <li>Yapay zekâ modelinin bağlama uygun, tutarlı ve doğal cevaplar üretmesi</li>
+        <li><strong>Text-to-Speech (TTS)</strong> ile karakterin doğal ve akıcı bir sesle cevap vermesi</li>
+        <li>Çoklu dil desteği (örneğin Arapça / Türkçe / İngilizce diyalog senaryoları)</li>
+      </ul>
+
+      <h3>1.3. Akıllı Metin &amp; Kelime Analizi (Gelişmiş)</h3>
+      <ul>
+        <li>Admin panelde girilen metinlerin yapay zekâ tarafından analiz edilmesi</li>
+        <li>Kelime kelime anlam, açıklama, örnek cümle ve gramer notlarının üretilmesi</li>
+        <li>Kelime zorluk seviyelerinin sınıflandırılması ve kullanıcıya göre önerilmesi</li>
+        <li>Kullanıcı belirli kelimelerde zorlanıyorsa sistemin bunu tespit edip ek açıklama, örnek veya mini quiz önermesi</li>
+      </ul>
+
+      <h3>1.4. Kişiselleştirilmiş Öğrenme Deneyimi</h3>
+      <ul>
+        <li>Kullanıcı davranışlarına göre dinamik içerik önerileri (seviyeye ve ilgi alanına göre)</li>
+        <li>“Senin için önerilenler” bölümü ile kişisel içerik akışı</li>
+        <li>Kullanıcının öğrenme yolculuğunu takip eden ve yönlendiren yapay zekâ asistanı</li>
+      </ul>
+
+      <h3>1.5. Gelişmiş Oyunlaştırma &amp; İlerleme Takibi</h3>
+      <ul>
+        <li>Günlük / haftalık hedefler (okuma süresi, kelime sayısı vb.)</li>
+        <li>Rozetler, seviye atlama, streak (günlük seri) sistemi</li>
+        <li>Kullanıcıya özel ilerleme raporu:
+          <ul>
+            <li>Toplam okunan metin</li>
+            <li>Öğrenilen kelimeler</li>
+            <li>En çok tekrar ettiği kelimeler</li>
+          </ul>
+        </li>
+        <li>Opsiyonel olarak liderlik tablosu (en aktif kullanıcılar)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>2. Platform Bileşenleri</h2>
+
+      <h3>2.1. Web Sitesi ve Web App</h3>
+      <ul>
+        <li>Tamamen sıfırdan tasarlanmış <strong>premium kurumsal web sitesi</strong></li>
+        <li>Web içinde login gerektiren <strong>web app alanı</strong>:
+          <ul>
+            <li>Metin okuma, kelime tıklama</li>
+            <li>Yapay zekâ karakteriyle konuşma ve sesli diyalog</li>
+          </ul>
+        </li>
+        <li>PWA mantığı ile mobil tarayıcıdan da “uygulama hissi” veren yapı</li>
+      </ul>
+
+      <h3>2.2. Mobil Uygulamalar (iOS &amp; Android)</h3>
+      <ul>
+        <li>iOS ve Android için tek kod tabanıyla geliştirilen modern mobil uygulama</li>
+        <li>Web app ile aynı içerik ve kullanıcı deneyiminin mobilde sunulması</li>
+        <li>Sesli diyalog, metin ve kelime bazlı etkileşimlerin native deneyimle sunulması</li>
+        <li>Push bildirimleri ile hatırlatma, hedefler ve yeni içerik duyuruları</li>
+      </ul>
+
+      <h3>2.3. Admin Panel (CMS + AI Merkezi)</h3>
+      <ul>
+        <li>Tüm metinlerin, başlıkların, kategorilerin ve görsellerin yönetimi</li>
+        <li>Metin girildiğinde yapay zekâyı tetikleyerek kelime bazlı açıklamaların üretilmesi</li>
+        <li>AI çıktılarının admin tarafından düzenlenip onaylanması</li>
+        <li>Kullanıcı ve istatistik ekranları (aktif kullanıcılar, okuma istatistikleri vb.)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>3. Teknik Mimari ve Teknolojiler</h2>
+      <p>
+        Elit Paket’te, uzun vadede sürdürülebilir, ölçeklenebilir ve yüksek performanslı bir yapı kurmak için güncel ve kurumsal
+        standartlara uygun teknolojiler tercih edilecektir:
+      </p>
+      <ul>
+        <li><strong>Backend &amp; API:</strong> TypeScript tabanlı, NestJS benzeri modern backend framework</li>
+        <li><strong>Veritabanı:</strong> PostgreSQL veya benzeri ilişkisel veritabanı</li>
+        <li><strong>Kimlik Doğrulama:</strong> JWT tabanlı auth, rol bazlı yetkilendirme</li>
+        <li><strong>Web Site &amp; Web App:</strong> TypeScript ile Next.js benzeri modern React tabanlı yapı, Tailwind CSS ile responsive UI</li>
+        <li><strong>Admin Panel:</strong> Tek sayfa uygulaması mantığında (SPA), backend API ile güvenli iletişim</li>
+        <li><strong>Mobil Uygulamalar:</strong> Tek kod tabanından iOS &amp; Android çıkışı alabileceğimiz React Native benzeri teknoloji</li>
+        <li><strong>Yapay Zekâ Modeli:</strong> Gemini / OpenAI veya benzeri LLM servisleri ile entegrasyon</li>
+        <li><strong>STT / TTS &amp; Lip Sync:</strong> Speech-to-Text, Text-to-Speech ve avatar lip-sync için uygun üçüncü parti servisler</li>
+      </ul>
+    </div>
+
+    <div class="grid">
+      <div class="section">
+        <h2>4. Tahmini Zaman Planı</h2>
+        <p>
+          Elit Paket, önceki paketlere göre daha geniş kapsamlıdır ve yapay zekâ karakteri, sesli diyalog ve lip-sync gibi ileri seviye
+          özellikler içerir. Bu nedenle proje süresi yaklaşık <strong>4–6 ay</strong> aralığında öngörülmektedir.
+        </p>
+        <table class="timeline-table">
+          <thead>
+            <tr>
+              <th>Aşama</th>
+              <th>İçerik</th>
+              <th>Süre Tahmini</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Analiz &amp; Konsept Tasarımı</td>
+              <td>İhtiyaç analizi, karakter ve deneyim tasarımı, bilgi mimarisi</td>
+              <td>3–4 hafta</td>
+            </tr>
+            <tr>
+              <td>2. Backend &amp; AI Altyapısı</td>
+              <td>Auth, içerik API’leri, AI pipeline, STT/TTS entegrasyon mimarisi</td>
+              <td>5–7 hafta</td>
+            </tr>
+            <tr>
+              <td>3. Admin Panel Geliştirme</td>
+              <td>CMS, AI yönetimi, kullanıcı ve raporlama ekranları</td>
+              <td>4–5 hafta</td>
+            </tr>
+            <tr>
+              <td>4. Web Site &amp; Web App</td>
+              <td>Kurumsal site, AI karakter ile web app etkileşimi</td>
+              <td>4–6 hafta</td>
+            </tr>
+            <tr>
+              <td>5. Mobil Uygulamalar</td>
+              <td>iOS &amp; Android uygulamaları, sesli diyalog entegrasyonu</td>
+              <td>5–7 hafta</td>
+            </tr>
+            <tr>
+              <td>6. Test, Optimizasyon &amp; Yayın</td>
+              <td>Fonksiyonel testler, yük testleri, App Store &amp; Google Play yayını</td>
+              <td>3–5 hafta</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="price-note">
+          Süreler, kapsamın birlikte sabitlenmesi ve özellikle AI karakter / lip-sync ayrıntılarının netleştirilmesine göre birlikte kesinleştirilecektir.
+        </p>
+      </div>
+
+      <div class="section section-strong elite-pulse">
+        <div class="tagline">Yatırım Bütçesi – Elit Paket</div>
+        <div class="price-highlight">650.000 TL – 700.000 TL</div>
+        <p>
+          Bu bütçe aralığı, aşağıdaki kalemleri kapsayan <strong>toplam geliştirme maliyeti</strong> için öngörülmüştür:
+        </p>
+        <ul>
+          <li>Analiz, konsept ve karakter / deneyim tasarımı</li>
+          <li>Backend, web sitesi, web app ve admin panel geliştirme</li>
+          <li>iOS &amp; Android mobil uygulama geliştirme</li>
+          <li>Yapay zekâ karakteri, LLM entegrasyonu, STT/TTS ve lip-sync entegrasyonu</li>
+          <li>Test, performans optimizasyonu ve güvenlik kontrolleri</li>
+          <li>App Store ve Google Play yayın süreçlerinin yönetimi</li>
+        </ul>
+        <p class="price-note">
+          Üçüncü parti servis lisansları (AI API maliyetleri, STT/TTS, avatar/lip-sync servisleri, sunucu/hosting vb.)
+          proje başında netleştirilerek size ayrı kalemler olarak yansıtılacaktır.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer section">
+      <h2>5. Sonuç ve Beklenen Değer</h2>
+      <p>
+        Elit Paket ile sadece bir yazılım değil, markanız için <strong>tamamen yapay zekâ odaklı, interaktif bir deneyim evreni</strong> oluşturulmaktadır.
+        Kullanıcılar, klasik okuma deneyiminin ötesine geçerek, dijital bir karakterle konuşan ve kendini özel hisseden bir yolculuğa çıkar.
+      </p>
+      <p>
+        OrScale ekibi olarak, süreci şeffaf, planlı ve dokümante bir şekilde yürütmeyi; proje sonunda ise
+        <strong>ölçeklenebilir, profesyonel ve vitrine çıkarılabilir bir amiral gemisi ürün</strong> teslim etmeyi hedefliyoruz.
+      </p>
+      <p class="signature">
+        Saygılarımla,<br />
+        <span class="pill">
+          <span class="pill-dot"></span>
+          <span><strong>Behzad Keshavarzi</strong> · OrScale – Yapılım &amp; Otomasyon Çözümleri</span>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Scroll animasyonu için basit Intersection Observer
+    (function () {
+      const sections = document.querySelectorAll('.section');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+            }
+          });
+        },
+        { threshold: 0.18 }
+      );
+
+      sections.forEach((sec) => observer.observe(sec));
+    })();
+  </script>
+</body>
+</html>

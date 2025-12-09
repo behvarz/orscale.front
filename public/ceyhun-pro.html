@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pro Paket – Yapay Zekâ Destekli Platform Teklifi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #05060a;
+      --bg-card: #10121a;
+      --bg-grad: radial-gradient(circle at top left, #262b3d 0, #10121a 50%, #05060a 100%);
+      --border-soft: rgba(255, 255, 255, 0.06);
+      --border-strong: rgba(255, 154, 60, 0.3);
+      --text-main: #f5f5f5;
+      --text-muted: #e3e3e3;
+      --accent-grad: linear-gradient(120deg, #ffb347, #ff5f6d);
+      --accent-pill: rgba(255, 255, 255, 0.06);
+      --accent-badge: rgba(255, 255, 255, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding: 16px;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 16px auto 40px;
+      padding: 20px 16px 24px;
+      background: var(--bg-grad);
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 24px;
+      }
+      .page {
+        padding: 32px 32px 32px;
+        border-radius: 24px;
+      }
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    @media (min-width: 640px) {
+      .header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+      }
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 768px) {
+      .brand {
+        font-size: 24px;
+      }
+    }
+
+    .brand span {
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    @media (min-width: 768px) {
+      .subtitle {
+        font-size: 12px;
+      }
+    }
+
+    .contact {
+      font-size: 11px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 640px) {
+      .contact {
+        text-align: right;
+      }
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 0 0 10px 0;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    h2 {
+      font-size: 15px;
+      margin: 18px 0 8px;
+    }
+
+    @media (min-width: 768px) {
+      h2 {
+        font-size: 18px;
+      }
+    }
+
+    h3 {
+      font-size: 13px;
+      margin: 14px 0 6px;
+    }
+
+    @media (min-width: 768px) {
+      h3 {
+        font-size: 15px;
+      }
+    }
+
+    p {
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 6px 0;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 768px) {
+      p {
+        font-size: 13px;
+      }
+    }
+
+    .meta {
+      font-size: 11px;
+      margin-bottom: 12px;
+      opacity: 0.85;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-badge);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: nowrap;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #ff9a3c;
+      box-shadow: 0 0 10px rgba(255, 154, 60, 0.8);
+    }
+
+    ul {
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 4px 0 4px 18px;
+      color: var(--text-muted);
+      padding-left: 16px;
+    }
+
+    @media (min-width: 768px) {
+      ul {
+        font-size: 13px;
+      }
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    .section {
+      margin-bottom: 14px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      border: 1px solid var(--border-soft);
+    }
+
+    @media (min-width: 768px) {
+      .section {
+        padding: 14px 16px;
+        margin-bottom: 18px;
+      }
+    }
+
+    .section-strong {
+      background: radial-gradient(circle at top left, rgba(255, 154, 60, 0.18), rgba(255, 255, 255, 0.01));
+      border-color: var(--border-strong);
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 2px;
+    }
+
+    @media (min-width: 860px) {
+      .grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        gap: 16px;
+      }
+    }
+
+    .tagline {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+
+    .price-highlight {
+      font-size: 18px;
+      font-weight: 700;
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 4px;
+    }
+
+    @media (min-width: 768px) {
+      .price-highlight {
+        font-size: 20px;
+      }
+    }
+
+    .price-note {
+      font-size: 11px;
+      opacity: 0.85;
+    }
+
+    .timeline-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .timeline-table {
+        font-size: 12px;
+      }
+    }
+
+    .timeline-table th,
+    .timeline-table td {
+      padding: 6px 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: top;
+    }
+
+    .timeline-table th {
+      text-align: left;
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .timeline-table td:nth-child(1) {
+      width: 30%;
+    }
+
+    .timeline-table td:nth-child(3) {
+      white-space: nowrap;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: var(--accent-pill);
+      opacity: 0.9;
+    }
+
+    .footer {
+      font-size: 11px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      opacity: 0.9;
+    }
+
+    @media (min-width: 768px) {
+      .footer {
+        font-size: 12px;
+        margin-top: 24px;
+        padding-top: 16px;
+      }
+    }
+
+    .signature {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .signature {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="brand"><span>OrScale</span></div>
+        <div class="subtitle">Yapay Zekâ Destekli Yazılım &amp; Mobil Uygulama Geliştirme</div>
+      </div>
+      <div class="contact">
+        <strong>Teklif Sahibi:</strong> Behzad Keshavarzi<br />
+        <strong>E-posta:</strong> info@orscale.com<br />
+        <strong>Telefon:</strong> +90 539 300 08 90<br />
+        <strong>Lokasyon:</strong> Dubai / Türkiye
+      </div>
+    </div>
+
+    <div class="meta">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        PRO PAKET – Yapay Zekâ Destekli Platform
+      </div>
+      <div class="badge">Web + Admin Panel + Web App + iOS &amp; Android</div>
+    </div>
+
+    <h1>Pro Paket – Yapay Zekâ Destekli Web Platformu, Admin Panel ve Mobil Uygulama Geliştirme Teklifi</h1>
+    <p>
+      Bu proje kapsamında, mevcut yapınızdan bağımsız olarak;
+      sıfırdan tasarlanmış modern bir <strong>kurumsal web sitesi</strong>,
+      yapay zekâ entegrasyonuna sahip merkezi bir <strong>admin panel (CMS + AI)</strong>,
+      aynı içerik altyapısını kullanan bir <strong>web uygulaması (web app)</strong> ve
+      iOS &amp; Android için yayınlanacak <strong>mobil uygulamalar</strong> geliştirilecektir.
+    </p>
+    <p>
+      Amaç; metinlerinizi, görsellerinizi ve yapay zekâ ile zenginleştirilmiş kelime açıklamalarını tek bir yerden yönetip,
+      hem web hem mobil ortamda kullanıcılarınıza tutarlı, profesyonel ve genişletilebilir bir deneyim sunmaktır.
+    </p>
+
+    <div class="section">
+      <h2>1. Proje Özeti</h2>
+      <ul>
+        <li>Sıfırdan tasarlanmış, modern ve çok dilli destek verebilen bir <strong>kurumsal web sitesi</strong></li>
+        <li>Tüm metin ve görselleri yöneten merkezi bir <strong>admin paneli (CMS + AI)</strong></li>
+        <li>Aynı içerik altyapısını kullanan <strong>web uygulaması (web app)</strong></li>
+        <li>iOS &amp; Android için yayınlanacak, web app ile uyumlu <strong>mobil uygulamalar</strong></li>
+        <li>Metinler üzerinde <strong>yapay zekâ destekli kelime analizi ve açıklama üretimi</strong></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>2. Proje Kapsamı</h2>
+
+      <h3>2.1. Kurumsal Web Sitesi</h3>
+      <ul>
+        <li>Modern, hızlı ve SEO uyumlu web sitesi tasarımı ve geliştirilmesi</li>
+        <li>Çok dilli altyapıya uygun yapı (örn. Arapça / Türkçe / İngilizce)</li>
+        <li>Kurumsal sayfalar (Hakkımızda, İletişim, Hizmetler vb.)</li>
+        <li>İçerik tarafında admin panel ile tam entegre yapı</li>
+        <li>Mobil, tablet ve masaüstü için tam responsive tasarım</li>
+      </ul>
+
+      <h3>2.2. Web Uygulaması (Web App)</h3>
+      <ul>
+        <li>Kullanıcı giriş sistemi (kayıt ol, giriş yap, şifremi unuttum)</li>
+        <li>Kullanıcı profil alanı (okunan metin sayısı, istatistikler vb.)</li>
+        <li>Metinlerin <strong>kategori → başlık → içerik</strong> mantığıyla listelenmesi</li>
+        <li>Metin içinde kelime tıklanınca ilgili kelimenin açıklamasını gösteren yapı</li>
+        <li>Tüm davranışların admin panel ve veritabanı ile entegre çalışması</li>
+      </ul>
+
+      <h3>2.3. Mobil Uygulamalar (iOS &amp; Android)</h3>
+      <ul>
+        <li>iOS ve Android için tek kod tabanıyla geliştirilen modern mobil uygulama</li>
+        <li>Web app ile aynı içerik ve kullanıcı deneyiminin mobilde sunulması</li>
+        <li>Kullanıcı girişi, profil, metin listeleri ve kelime tıklama özelliği</li>
+        <li>Okunan metin sayısının takip edilmesi ve profil ekranında gösterilmesi</li>
+        <li>App Store ve Google Play’e yükleme ve ilk yayın sürecinin yönetimi</li>
+      </ul>
+
+      <h3>2.4. Admin Panel (CMS + AI Entegrasyonu)</h3>
+      <ul>
+        <li>Tüm metinlerin, başlıkların, kategorilerin ve görsellerin yönetimi</li>
+        <li>Yeni metin eklerken yapay zekâ entegrasyonu ile:
+          <ul>
+            <li>Metnin taranması</li>
+            <li>Kelime kelime veya seçili kelimeler için anlam / açıklama / özellik bilgileri üretilmesi</li>
+            <li>Bu bilgilerin sistemde yapılandırılmış formatta saklanması</li>
+          </ul>
+        </li>
+        <li>AI çıktılarının admin tarafından düzenlenebilmesi, onaylanabilmesi</li>
+        <li>Kullanıcı listesi, kullanıcı detayları, okuma istatistikleri</li>
+        <li>Temel raporlama ekranları (toplam kullanıcı, toplam okunan metin vb.)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>3. Yapay Zekâ Entegrasyonu</h2>
+      <p>
+        Proje kapsamında kullanılacak yapay zekâ motoru ile, admin panelde girilen metinler AI servisine gönderilecek;
+        geri dönen sonuçlardan kelime bazlı açıklamalar ve özellikler çıkarılarak veritabanında saklanacaktır.
+      </p>
+      <ul>
+        <li>Metnin yapay zekâya gönderilmesi ve anlamlandırılması</li>
+        <li>Kelime veya seçili kelime grupları için açıklama / anlam / özellik üretimi</li>
+        <li>Bu verilerin JSON veya benzeri formatta saklanması</li>
+        <li>Web app ve mobil uygulamalarda kelime tıklama özelliği ile son kullanıcıya sunulması</li>
+      </ul>
+      <p class="price-note">
+        Kullanılacak model ve servis (örneğin Gemini, OpenAI veya benzeri) proje başında sizinle birlikte seçilecek olup,
+        lisans ve kullanım maliyetleri şeffaf biçimde planlanacaktır.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>4. Teknik Mimari ve Teknolojiler</h2>
+      <p>Projeyi uzun vadede sürdürülebilir, ölçeklenebilir ve modern bir yapı üzerine kurmak için güncel ve kurumsal standartlara uygun teknolojiler tercih edilecektir:</p>
+      <ul>
+        <li><strong>Backend &amp; API:</strong> TypeScript tabanlı, NestJS benzeri modern bir backend framework</li>
+        <li><strong>Veritabanı:</strong> PostgreSQL veya benzeri ilişkisel veritabanı</li>
+        <li><strong>Kimlik Doğrulama:</strong> JWT tabanlı auth, rol bazlı yetkilendirme</li>
+        <li><strong>Web Site &amp; Web App:</strong> TypeScript ile Next.js benzeri modern React tabanlı yapı, Tailwind CSS ile responsive UI</li>
+        <li><strong>Admin Panel:</strong> Tek sayfa uygulaması mantığında (SPA), backend API ile güvenli iletişim</li>
+        <li><strong>Mobil Uygulamalar:</strong> Tek kod tabanından iOS &amp; Android çıkışı alabileceğimiz React Native benzeri modern teknoloji</li>
+      </ul>
+      <p>
+        Bu teknoloji seçimi, hem geliştirme sürecini hızlandırmakta hem de uzun vadede bakım ve yeni özellik ekleme süreçlerini kolaylaştırmaktadır.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="section">
+        <h2>5. Tahmini Zaman Planı</h2>
+        <p>
+          Proje, kapsamın birlikte netleştirilmesi sonrasında aşağıdaki gibi bir takvimle ilerleyecektir.
+          Toplam süre yaklaşık <strong>8–12 hafta (2–3 ay)</strong> olarak öngörülmektedir.
+        </p>
+        <table class="timeline-table">
+          <thead>
+            <tr>
+              <th>Aşama</th>
+              <th>İçerik</th>
+              <th>Süre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Analiz &amp; Tasarım</td>
+              <td>İhtiyaç analizi, ekran akışları, bilgi mimarisi, temel UI/UX</td>
+              <td>2–3 hafta</td>
+            </tr>
+            <tr>
+              <td>2. Backend &amp; AI Entegrasyonu</td>
+              <td>Auth sistemi, kullanıcı &amp; içerik API’leri, AI entegrasyonu</td>
+              <td>3–4 hafta</td>
+            </tr>
+            <tr>
+              <td>3. Admin Panel</td>
+              <td>İçerik yönetimi, AI çıktıları yönetimi, raporlama</td>
+              <td>2–3 hafta</td>
+            </tr>
+            <tr>
+              <td>4. Web Site &amp; Web App</td>
+              <td>Kurumsal site sayfaları, web app deneyimi</td>
+              <td>2–3 hafta</td>
+            </tr>
+            <tr>
+              <td>5. Mobil Uygulamalar</td>
+              <td>iOS &amp; Android ekranları, profil &amp; istatistikler</td>
+              <td>3–4 hafta</td>
+            </tr>
+            <tr>
+              <td>6. Test &amp; Yayın</td>
+              <td>Fonksiyonel testler, optimizasyon, store süreçleri</td>
+              <td>2–3 hafta</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="price-note">
+          Süreler, kapsamın birlikte sabitlenmesi ve ek isteklerin durumuna göre küçük farklılıklar gösterebilir.
+        </p>
+      </div>
+
+      <div class="section section-strong">
+        <div class="tagline">Yatırım Bütçesi – Pro Paket</div>
+        <div class="price-highlight">200.000 TL – 250.000 TL</div>
+        <p>
+          Bu bütçe aralığı, aşağıdaki kalemleri kapsayan <strong>toplam geliştirme maliyeti</strong> için öngörülmüştür:
+        </p>
+        <ul>
+          <li>Analiz, mimari tasarım ve proje planlama</li>
+          <li>Backend, web sitesi, web app ve admin panel geliştirme</li>
+          <li>iOS &amp; Android mobil uygulama geliştirme</li>
+          <li>Yapay zekâ entegrasyonunun proje kapsamındaki kullanımı</li>
+          <li>Test, hata düzeltme ve performans iyileştirmeleri</li>
+          <li>App Store ve Google Play yayın süreçlerinin yönetimi</li>
+        </ul>
+        <p class="price-note">
+          Üçüncü parti servisler (AI API maliyetleri, sunucu/hosting, domain, store ücretleri vb.)
+          proje başında netleştirilerek size ayrı kalemler olarak yansıtılacaktır.
+        </p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>6. Sonuç ve Birlikte Çalışma Modeli</h2>
+      <p>
+        Bu proje ile içerikleriniz tek merkezden yönetilebilir hale gelecek; yapay zekâ ile zenginleştirilmiş
+        kelime açıklamaları sayesinde kullanıcılarınıza katma değerli bir okuma deneyimi sunabileceksiniz.
+      </p>
+      <p>
+        Web, mobil ve admin tarafı, uzun vadeli büyümeye uygun, modern ve güncel bir teknoloji stack’i
+        üzerinde inşa edilerek; ölçeklenebilir, güvenli ve genişletilebilir bir ürün ortaya konulacaktır.
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>
+        OrScale ekibi olarak, süreci şeffaf, planlı ve dokümante bir şekilde yürütmeyi;
+        proje sonunda ise sürdürülebilir, profesyonel ve geliştirilmeye açık bir ürün teslim etmeyi hedefliyoruz.
+      </p>
+      <p class="signature">
+        Saygılarımla,<br />
+        <strong>Behzad Keshavarzi</strong><br />
+        <span class="pill">OrScale – Yazılım &amp; Otomasyon Çözümleri</span>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
