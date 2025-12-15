@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Özel LMS Geliştirme Teklifi — 21 Günlük Eğitim Programı</title>
+
+<style>
+:root{
+  --ink:#0f0f0f;
+  --muted:#6b7280;
+  --bg:#ffffff;
+  --line:#e5e7eb;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+}
+.container{max-width:1024px;margin:0 auto;padding:48px 24px 96px}
+.hero{
+  border:2px solid #111;
+  border-radius:22px;
+  padding:28px;
+  background:linear-gradient(180deg,#fff,#fafafa);
+}
+.badge{
+  display:inline-block;
+  border:1.5px solid #111;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  text-transform:uppercase;
+}
+h1{font-size:36px;margin:16px 0 8px;font-weight:800}
+h2{font-size:22px;margin:36px 0 12px;font-weight:800}
+p{line-height:1.6}
+.muted{color:var(--muted)}
+.price{font-size:40px;font-weight:900}
+.kv{display:grid;grid-template-columns:160px 1fr;gap:8px;margin-top:14px}
+.card{
+  border:1.5px solid #111;
+  border-radius:18px;
+  padding:20px;
+  margin-top:14px;
+}
+.list{padding-left:18px}
+.list li{margin:6px 0}
+.table{
+  width:100%;
+  border-collapse:collapse;
+  border:1.5px solid #111;
+  border-radius:14px;
+  overflow:hidden;
+}
+.table th,.table td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--line);
+}
+.table th{
+  background:#111;
+  color:#fff;
+  text-align:left;
+}
+.hr{height:1px;background:var(--line);margin:24px 0}
+.footer{margin-top:48px;font-size:14px;color:var(--muted)}
+.tag{
+  display:inline-block;
+  border:1px solid #111;
+  padding:4px 8px;
+  border-radius:8px;
+  font-size:12px;
+  margin:4px 6px 0 0;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="badge">Özel Yazılım Teklifi</span>
+    <h1>Özel LMS Geliştirme Teklifi</h1>
+    <p class="muted">
+      “21 Günlük Eğitim Programı” için hazır platformlar (EzyCourse / Kajabi / Thinkific) kullanılmadan,
+      tamamen size özel geliştirilecek online eğitim altyapısı.
+    </p>
+
+    <div class="price">15.000 USD</div>
+
+    <div class="kv">
+      <div class="muted">Süre</div>
+      <div>
+        <strong>8 Hafta</strong><br>
+        <span class="muted">
+          (Standart proje süresi 10 haftadır. Projenin aciliyeti doğrultusunda ekip kapasitesi artırılarak,
+          ek ücret yansıtılmadan 8 haftaya düşürülmüştür.)
+        </span>
+      </div>
+
+      <div class="muted">Kapsam</div>
+      <div>
+        Web Uygulaması + Admin Paneli + Ödeme Sistemi + Quiz + PDF + Sertifika + E-posta Otomasyonları
+      </div>
+
+      <div class="muted">Hazırlayan</div>
+      <div><strong>OrScale</strong></div>
+    </div>
+  </div>
+
+  <!-- HEDEF -->
+  <h2>1) Proje Amacı</h2>
+  <div class="card">
+    <p>
+      Katılımcıların 21 gün boyunca her gün düzenli olarak ilerlediği,
+      video dersler, günlük quizler, indirilebilir PDF’ler ve
+      eğitim sonunda otomatik oluşturulan isimli sertifika ile
+      tamamlanan profesyonel bir online eğitim deneyimi oluşturulması.
+    </p>
+  </div>
+
+  <!-- TESLİMAT -->
+  <h2>2) Teslim Edilecek Ana Modüller</h2>
+  <div class="card">
+    <ul class="list">
+      <li>Kullanıcı kayıt, giriş ve üyelik yönetimi</li>
+      <li>21 günlük kilitli eğitim akışı (Day 1 → Day 21)</li>
+      <li>61 adet video için gelişmiş video oynatıcı</li>
+      <li>Günlük 10 soruluk quiz sistemi</li>
+      <li>Gün bazlı ve özel PDF indirme alanları</li>
+      <li>Otomatik isimli PDF sertifika üretimi</li>
+      <li>Admin panel (içerik, kullanıcı, satış, raporlar)</li>
+      <li>İyzico / Stripe ödeme entegrasyonu</li>
+      <li>Otomatik e-posta akışları</li>
+    </ul>
+  </div>
+
+  <!-- YOL HARİTASI -->
+  <h2>3) Hızlandırılmış 8 Haftalık Yol Haritası</h2>
+  <p class="muted">
+    Normalde 10 hafta olarak planlanan proje, müşteri tarafındaki zaman hassasiyeti nedeniyle
+    ekip genişletilerek 8 haftada tamamlanacak şekilde yeniden planlanmıştır.
+  </p>
+
+  <table class="table">
+    <tr><th>Hafta</th><th>Çıktılar</th></tr>
+    <tr><td>1</td><td>Kick-off, analiz, teknik mimari, UX akışları</td></tr>
+    <tr><td>2</td><td>UI taslakları, veri modeli, altyapı kurulumu</td></tr>
+    <tr><td>3</td><td>Frontend temel ekranlar, kullanıcı akışları</td></tr>
+    <tr><td>4</td><td>Video player, quiz modülü, PDF altyapısı</td></tr>
+    <tr><td>5</td><td>Ödeme sistemleri, lisans ve e-posta akışları</td></tr>
+    <tr><td>6</td><td>Sertifika sistemi, profil ve ilerleme ekranları</td></tr>
+    <tr><td>7</td><td>Admin panel, raporlar, analitik</td></tr>
+    <tr><td>8</td><td>Testler, optimizasyon, canlıya geçiş</td></tr>
+  </table>
+
+  <!-- OPSİYON -->
+  <h2>4) Opsiyonel: Özel Video Streaming Altyapısı</h2>
+  <div class="card">
+    <p>
+      Mevcut teklif kapsamında videolar Vimeo / YouTube Premium üzerinden
+      gizli linkler ile yayınlanacaktır.
+    </p>
+
+    <p>
+      Talep edilmesi halinde üçüncü parti platformlar kullanılmadan,
+      tamamen size özel bir video streaming altyapısı geliştirilebilir.
+    </p>
+
+    <ul class="list">
+      <li>Özel video player</li>
+      <li>Token bazlı güvenli erişim</li>
+      <li>Download ve ekran kaydı önleyici önlemler</li>
+      <li>CDN destekli streaming</li>
+    </ul>
+
+    <div class="hr"></div>
+
+    <p>
+      <strong>Ek Süre:</strong> +1 Hafta<br>
+      <strong>Ek Geliştirme Bedeli:</strong> <strong>2.500 USD</strong>
+    </p>
+
+    <p class="muted">
+      Aylık video depolama ve trafik maliyetleri bu bedellere dahil değildir.
+    </p>
+  </div>
+
+  <!-- FİYAT -->
+  <h2>5) Fiyatlandırma ve Ödeme Planı</h2>
+  <div class="card">
+    <p class="price">15.000 USD</p>
+    <ul class="list">
+      <li>%30 – Proje başlangıcı</li>
+      <li>%40 – 6. hafta sonunda fonksiyonel ön gösterim</li>
+      <li>%30 – Canlıya geçiş öncesi</li>
+    </ul>
+  </div>
+
+  <!-- DESTEK -->
+  <h2>6) Bakım ve Destek</h2>
+  <div class="card">
+  <p><strong>1. Yıl:</strong> Geliştirme sonrası ilk 12 ay boyunca bakım ve destek hizmeti <strong>ücretsiz</strong> olarak sağlanacaktır.</p>
+  <p><strong>2. Yıldan itibaren:</strong> Sistem yapısında temel değişiklik talep edilmediği sürece yıllık bakım ücreti <strong>1.000 USD</strong> olacaktır.</p>
+  <p>Bu hizmet aşağıdaki küçük bakım işlemlerini kapsar:</p>
+  <ul class="list">
+    <li>Sunucu güvenlik ve performans güncellemeleri</li>
+    <li>Küçük görsel veya metin düzenlemeleri</li>
+    <li>Yeni video, quiz veya PDF ekleme (makul sıklıkta)</li>
+    <li>Kullanıcı desteği (mail veya form üzerinden)</li>
+    <li>Aylık yedekleme ve sistem raporlaması</li>
+  </ul>
+  <p class="muted">Not: Temel mimariyi etkileyen yeni özellik veya modül eklemeleri bu kapsama dahil değildir ve ayrıca tekliflendirilir.</p>
+</div>
+
+  <div class="footer">
+    <p>Bu teklif 15 gün süreyle geçerlidir.</p>
+    <p>Hazırlayan: <strong>OrScale</strong></p>
+  </div>
+
+</div>
+</body>
+</html>
