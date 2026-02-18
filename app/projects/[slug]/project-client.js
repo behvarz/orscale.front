@@ -29,6 +29,7 @@ export default function ProjectClient({ project }) {
   const t = translations[lang];
   const localized = useMemo(() => localizeProject(project, lang), [lang, project]);
   const preview = project.preview ?? {};
+  const canEmbedPreview = preview.allowIframe !== false;
   const previewVars = {
     "--preview-scale": isMobile ? 1 : preview.detailScale ?? 0.65,
     "--preview-height": `${
@@ -64,13 +65,28 @@ export default function ProjectClient({ project }) {
             <div className="preview-shell" style={previewVars}>
               <div className="preview-bar">{t.projectsPage.livePreview}</div>
               <div className="preview-hover">
-                <iframe
-                  src={localized.url}
-                  title={`${localized.locale.title} live site`}
-                  loading="lazy"
-                  className="preview-iframe"
-                  referrerPolicy="no-referrer"
-                />
+                {canEmbedPreview ? (
+                  <iframe
+                    src={localized.url}
+                    title={`${localized.locale.title} live site`}
+                    loading="lazy"
+                    className="preview-iframe"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <div className="h-full w-full flex flex-col items-center justify-center px-6 text-center bg-slate-950/70 gap-4">
+                    <p className="text-sm text-slate-300">{t.projectsPage.previewUnavailable}</p>
+                    <Link
+                      href={localized.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-900 font-semibold text-sm"
+                    >
+                      {t.projectsPage.detail.visit}
+                      <span aria-hidden>↗</span>
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
 

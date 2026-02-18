@@ -66,6 +66,7 @@ export default function ProjectsPage() {
 
         <div className="mt-10 max-w-6xl mx-auto grid gap-8 md:grid-cols-2">
           {localizedProjects.map((project) => {
+            const canEmbedPreview = project.preview?.allowIframe !== false;
             const previewStyle = {
               "--preview-scale": isMobile ? 1 : project.preview?.cardScale ?? 0.72,
               "--preview-height": `${
@@ -85,13 +86,28 @@ export default function ProjectsPage() {
                 <div className="preview-shell" style={previewStyle}>
                   <div className="preview-bar">{t.projectsPage.livePreview}</div>
                   <div className="preview-hover">
-                    <iframe
-                      src={project.url}
-                      title={`${project.locale.title} preview`}
-                      loading="lazy"
-                      className="preview-iframe"
-                      referrerPolicy="no-referrer"
-                    />
+                    {canEmbedPreview ? (
+                      <iframe
+                        src={project.url}
+                        title={`${project.locale.title} preview`}
+                        loading="lazy"
+                        className="preview-iframe"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="h-full w-full flex flex-col items-center justify-center px-6 text-center bg-slate-950/70 gap-4">
+                        <p className="text-sm text-slate-300">{t.projectsPage.previewUnavailable}</p>
+                        <Link
+                          href={project.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-900 font-semibold text-sm"
+                        >
+                          {t.projectsPage.detail.visit}
+                          <span aria-hidden>↗</span>
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
 
