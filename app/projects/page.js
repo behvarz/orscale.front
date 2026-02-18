@@ -29,7 +29,22 @@ export default function ProjectsPage() {
   const t = translations[lang];
 
   const localizedProjects = useMemo(() => {
-    return getProjects().map((project) => localizeProject(project, lang));
+    const preferredOrder = [
+      "21-gunde-marka",
+      "qeasypark",
+      "remart-ai-gallery",
+      "bibeauty-global",
+    ];
+    const orderMap = new Map(preferredOrder.map((slug, index) => [slug, index]));
+
+    return getProjects()
+      .slice()
+      .sort((a, b) => {
+        const aOrder = orderMap.has(a.slug) ? orderMap.get(a.slug) : Number.MAX_SAFE_INTEGER;
+        const bOrder = orderMap.has(b.slug) ? orderMap.get(b.slug) : Number.MAX_SAFE_INTEGER;
+        return aOrder - bOrder;
+      })
+      .map((project) => localizeProject(project, lang));
   }, [lang]);
 
   return (
